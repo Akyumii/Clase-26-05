@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Acreditación vs Arancel con Filtro de Selección</title>
+    <title>Acreditación vs Arancel con Filtro de Ranking</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -14,64 +14,72 @@
     <script>
         const ctx = document.getElementById('graficoAcredArancelFiltro').getContext('2d');
 
-    
-        function calcularRadioFiltro(porcentaje) {
+        function obtenerRadioVisual(porcentaje) {
             return porcentaje === 0 ? 4 : porcentaje * 0.4;
         }
 
         const data = {
             datasets: [
                 {
-                    label: 'Ponderación Obligatoria de Notas Escolares (% NEM + % Ranking)',
+                    label: 'Universidades Estatales (CRUCH)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgb(54, 162, 235)',
+                    borderWidth: 1,
+                    data: [
+                        { x: 5, y: 5120000, r: obtenerRadioVisual(40), ranking: 40, label: 'U. de Antofagasta - Diseño Gráfico Mención Diseño Estratégico' },
+                        { x: 7, y: 5492400, r: obtenerRadioVisual(20), ranking: 20, label: 'U. de Chile - Diseño Teatral' },
+                        { x: 7, y: 6486700, r: obtenerRadioVisual(30), ranking: 30, label: 'U. de Chile - Diseño' },
+                        { x: 5, y: 4071000, r: obtenerRadioVisual(20), ranking: 20, label: 'U. de La Serena - Diseño' },
+                        { x: 5, y: 4305000, r: obtenerRadioVisual(30), ranking: 30, label: 'UPLA - Diseño' },
+                        { x: 7, y: 4989000, r: obtenerRadioVisual(40), ranking: 40, label: 'USACH - Diseño Industrial' },
+                        { x: 7, y: 6552000, r: obtenerRadioVisual(40), ranking: 40, label: 'USACH - Diseño en Comunicación Visual' },
+                        { x: 6, y: 5887000, r: obtenerRadioVisual(30), ranking: 30, label: 'U. de Talca - Diseño' },
+                        { x: 6, y: 6555000, r: obtenerRadioVisual(40), ranking: 40, label: 'U. de Tarapacá - Diseño Multimedia' },
+                        { x: 6, y: 5713000, r: obtenerRadioVisual(40), ranking: 40, label: 'U. de Valparaíso - Diseño' },
+                        { x: 5, y: 4307000, r: obtenerRadioVisual(30), ranking: 30, label: 'U. del Bío-Bío - Diseño Gráfico' },
+                        { x: 5, y: 4434000, r: obtenerRadioVisual(40), ranking: 40, label: 'U. del Bío-Bío - Diseño Industrial' },
+                        { x: 4, y: 4763300, r: obtenerRadioVisual(40), ranking: 40, label: 'UTEM - Diseño en Comunicación Visual' },
+                        { x: 4, y: 4891000, r: obtenerRadioVisual(35), ranking: 35, label: 'UTEM - Diseño Industrial' }
+                    ]
+                },
+                {
+                    label: 'Universidades Privadas / Privadas CRUCH',
                     backgroundColor: 'rgba(255, 99, 132, 0.6)',
                     borderColor: 'rgb(255, 99, 132)',
                     borderWidth: 1,
                     data: [
-                        { x: 3, y: 4030000, r: calcularRadioFiltro(0), label: 'UNIACC - D. de Interiores y Ambientes' },
-                        { x: 5, y: 4071000, r: calcularRadioFiltro(40), label: 'U. de La Serena - Diseño' },
-                        { x: 3, y: 4210000, r: calcularRadioFiltro(0), label: 'UNIACC - D. de Imagen Esp. Moda' },
-                        { x: 3, y: 4210000, r: calcularRadioFiltro(0), label: 'UNIACC - Diseño Gráfico Esp. Multimedia' },
-                        { x: 4, y: 4277000, r: calcularRadioFiltro(70), label: 'UVM - Diseño' },
-                        { x: 5, y: 4305000, r: calcularRadioFiltro(60), label: 'UPLA - Diseño' },
-                        { x: 5, y: 4307000, r: calcularRadioFiltro(50), label: 'U. del Bío-Bío - Diseño Gráfico' },
-                        { x: 5, y: 4434000, r: calcularRadioFiltro(60), label: 'U. del Bío-Bío - Diseño Industrial' },
-                        { x: 3, y: 4580000, r: calcularRadioFiltro(0), label: 'UNIACC - Comunicación Digital (Videojuegos)' },
-                        { x: 5, y: 4730000, r: calcularRadioFiltro(70), label: 'UDLA - Diseño' },
-                        { x: 4, y: 4763300, r: calcularRadioFiltro(50), label: 'UTEM - Diseño en Com. Visual' },
-                        { x: 4, y: 4814000, r: calcularRadioFiltro(0), label: 'UGM - Diseño Exp. Inmersivas (Virtual)' },
-                        { x: 4, y: 4814000, r: calcularRadioFiltro(70), label: 'UGM - Diseño de Videojuegos' },
-                        { x: 4, y: 4814000, r: calcularRadioFiltro(70), label: 'UGM - Animación Digital' },
-                        { x: 4, y: 4814000, r: calcularRadioFiltro(70), label: 'UGM - Interacción Digital' },
-                        { x: 4, y: 4814000, r: calcularRadioFiltro(70), label: 'UGM - Marketing Digital' },
-                        { x: 4, y: 4891000, r: calcularRadioFiltro(60), label: 'UTEM - Diseño Industrial' },
-                        { x: 7, y: 4989000, r: calcularRadioFiltro(50), label: 'USACH - Diseño Industrial' },
-                        { x: 6, y: 5069000, r: calcularRadioFiltro(30), label: 'UNAB - Diseño de Juegos Digitales (Conce)' },
-                        { x: 5, y: 5120000, r: calcularRadioFiltro(50), label: 'U. de Antofagasta - D. Gráfico Mención Estratégico' },
-                        { x: 6, y: 5180000, r: calcularRadioFiltro(35), label: 'UTFSM - Ing. en Fabricación y D. Industrial' },
-                        { x: 5, y: 5276000, r: calcularRadioFiltro(60), label: 'U. Católica de Temuco - Diseño' },
-                        { x: 7, y: 5492400, r: calcularRadioFiltro(30), label: 'U. de Chile - Diseño Teatral' },
-                        { x: 6, y: 5713000, r: calcularRadioFiltro(60), label: 'U. de Valparaíso - Diseño' },
-                        { x: 6, y: 5887000, r: calcularRadioFiltro(50), label: 'U. Austral de Chile - Diseño' },
-                        { x: 6, y: 5887000, r: calcularRadioFiltro(50), label: 'U. de Talca - Diseño' },
-                        { x: 5, y: 5900000, r: calcularRadioFiltro(45), label: 'UBO - Ing. Realidad Virtual' },
-                        { x: 6, y: 6000000, r: calcularRadioFiltro(35), label: 'UTFSM - Ing. Diseño de Productos' },
-                        { x: 6, y: 6056038, r: calcularRadioFiltro(20), label: 'UDD - Diseño (Concepción)' },
-                        { x: 6, y: 6486700, r: calcularRadioFiltro(40), label: 'U. de Chile - Diseño' },
-                        { x: 7, y: 6552000, r: calcularRadioFiltro(50), label: 'USACH - Diseño en Com. Visual' },
-                        { x: 6, y: 6555000, r: calcularRadioFiltro(50), label: 'U. de Tarapacá - Diseño Multimedia' },
-                        { x: 7, y: 6915000, r: calcularRadioFiltro(40), label: 'PUCV - Diseño' },
-                        { x: 6, y: 7065000, r: calcularRadioFiltro(30), label: 'UNAB - Diseño Gráfico' },
-                        { x: 6, y: 7136000, r: calcularRadioFiltro(30), label: 'UNAB - Diseño de Juegos Digitales (Stgo)' },
-                        { x: 6, y: 7148000, r: calcularRadioFiltro(30), label: 'UNAB - Diseño de Vestuario y Textil' },
-                        { x: 5, y: 7200000, r: calcularRadioFiltro(40), label: 'U. Finis Terrae - Bachillerato' },
-                        { x: 5, y: 7214218, r: calcularRadioFiltro(40), label: 'U. Mayor - Diseño Menciones' },
-                        { x: 5, y: 7320000, r: calcularRadioFiltro(40), label: 'U. Finis Terrae - Diseño' },
-                        { x: 5, y: 7320000, r: calcularRadioFiltro(30), label: 'U. Finis Terrae - Diseño de Moda' },
-                        { x: 6, y: 7597000, r: calcularRadioFiltro(40), label: 'UDP - Diseño' },
-                        { x: 7, y: 8080000, r: calcularRadioFiltro(50), label: 'PUC - Diseño' },
-                        { x: 6, y: 9754692, r: calcularRadioFiltro(50), label: 'UDD - Diseño' },
-                        { x: 6, y: 9754692, r: calcularRadioFiltro(0), label: 'UAI - Ingeniería en Diseño' },
-                        { x: 6, y: 20, r: calcularRadioFiltro(20), label: 'UDD - Bachillerato en Diseño' }
+                        { x: 6, y: 9754692, r: obtenerRadioVisual(0), ranking: 0, label: 'UAI - Ingeniería en Diseño' },
+                        { x: 6, y: 5069000, r: obtenerRadioVisual(10), ranking: 10, label: 'UNAB - Diseño de Juegos Digitales (Conce)' },
+                        { x: 6, y: 7065000, r: obtenerRadioVisual(10), ranking: 10, label: 'UNAB - Diseño Gráfico' },
+                        { x: 6, y: 7136000, r: obtenerRadioVisual(10), ranking: 10, label: 'UNAB - Diseño de Juegos Digitales' },
+                        { x: 6, y: 7148000, r: obtenerRadioVisual(10), ranking: 10, label: 'UNAB - Diseño de Vestuario y Textil' },
+                        { x: 5, y: 5900000, r: obtenerRadioVisual(25), ranking: 25, label: 'UBO - Ingeniería en Realidad Virtual y Diseño de Juegos Digitales' },
+                        { x: 3, y: 4030000, r: obtenerRadioVisual(0), ranking: 0, label: 'UNIACC - Diseño de Interiores y Ambientes' },
+                        { x: 3, y: 4210000, r: obtenerRadioVisual(0), ranking: 0, label: 'UNIACC - Diseño de Imagen Especialidad Moda' },
+                        { x: 3, y: 4210000, r: obtenerRadioVisual(0), ranking: 0, label: 'UNIACC - Diseño Gráfico Especialidad Multimedia' },
+                        { x: 3, y: 4580000, r: obtenerRadioVisual(0), ranking: 0, label: 'UNIACC - Comunicación Digital Esp. Diseño y Des. de Videojuegos' },
+                        { x: 5, y: 4730000, r: obtenerRadioVisual(40), ranking: 40, label: 'UDLA - Diseño' },
+                        { x: 4, y: 4277000, r: obtenerRadioVisual(40), ranking: 40, label: 'UVM - Diseño' },
+                        { x: 6, y: 6056038, r: obtenerRadioVisual(10), ranking: 10, label: 'UDD - Diseño (Concepción)' },
+                        { x: 6, y: 9754692, r: obtenerRadioVisual(25), ranking: 25, label: 'UDD - Diseño (Stgo)' },
+                        { x: 6, y: 10364360, r: obtenerRadioVisual(10), ranking: 10, label: 'UDD - Bachillerato en Diseño' },
+                        { x: 5, y: 7200000, r: obtenerRadioVisual(30), ranking: 30, label: 'U. Finis Terrae - Bachillerato en Artes, Arquitectura y Diseño' },
+                        { x: 5, y: 7320000, r: obtenerRadioVisual(25), ranking: 25, label: 'U. Finis Terrae - Diseño' },
+                        { x: 5, y: 7320000, r: obtenerRadioVisual(20), ranking: 20, label: 'U. Finis Terrae - Diseño de Moda y Management' },
+                        { x: 4, y: 4814000, r: obtenerRadioVisual(0), ranking: 0, label: 'UGM - Diseño de Experiences Inmersivas y Videojuegos' },
+                        { x: 4, y: 4814000, r: obtenerRadioVisual(40), ranking: 40, label: 'UGM - Diseño de Videojuegos' },
+                        { x: 4, y: 4814000, r: obtenerRadioVisual(40), ranking: 40, label: 'UGM - Diseño en Animación Digital' },
+                        { x: 4, y: 4814000, r: obtenerRadioVisual(40), ranking: 40, label: 'UGM - Diseño en Interacción Digital' },
+                        { x: 4, y: 4814000, r: obtenerRadioVisual(40), ranking: 40, label: 'UGM - Diseño en Marketing Digital' },
+                        { x: 5, y: 7214218, r: obtenerRadioVisual(30), ranking: 30, label: 'U. Mayor - Diseño Mención Industrial/Gráfico/Ambientes' },
+                        { x: 7, y: 8080000, r: obtenerRadioVisual(25), ranking: 25, label: 'PUC - Diseño' },
+                        { x: 7, y: 6915000, r: obtenerRadioVisual(20), ranking: 20, label: 'PUCV - Diseño' },
+                        { x: 6, y: 5887000, r: obtenerRadioVisual(40), ranking: 40, label: 'U. Austral de Chile - Diseño' },
+                        { x: 5, y: 5276000, r: obtenerRadioVisual(50), ranking: 50, label: 'U. Católica de Temuco - Diseño' },
+                        { x: 6, y: 7597000, r: obtenerRadioVisual(30), ranking: 30, label: 'UDP - Diseño' },
+                        { x: 6, y: 5180000, r: obtenerRadioVisual(20), ranking: 20, label: 'UTFSM - Ingeniería en Fabricación y Diseño Industrial' },
+                        { x: 6, y: 6000000, r: obtenerRadioVisual(20), ranking: 20, label: 'UTFSM - Ingeniería en Diseño de Productos (Muestra 1)' },
+                        { x: 6, y: 6000000, r: obtenerRadioVisual(20), ranking: 20, label: 'UTFSM - Ingeniería en Diseño de Productos (Muestra 2)' }
                     ]
                 }
             ]
@@ -83,12 +91,26 @@
             options: {
                 responsive: true,
                 plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    
+                    subtitle: {
+                        display: true,
+                        text: 'O El tamaño de cada burbuja en función al % de Ponderación del Ranking solicitado',
+                        color: '#555',
+                        font: { size: 13, style: 'italic' },
+                        padding: { bottom: 15 }
+                    },
+                    // --------------------------------------------------------
                     tooltip: {
                         callbacks: {
                             label: function(context) {
                                 let item = context.raw;
-                                let porcentajeReal = item.r === 4 ? 0 : Math.round(item.r / 0.4);
-                                return item.label + ' | Acreditación: ' + item.x + ' años | Arancel: $' + item.y.toLocaleString() + ' | Filtro Notas: ' + porcentajeReal + '%';
+                                return item.label + 
+                                       ' | Acreditación: ' + item.x + ' años' +
+                                       ' | Arancel: $' + item.y.toLocaleString() + 
+                                       ' | Ponderación Ranking: ' + item.ranking + '%';
                             }
                         }
                     }
@@ -113,7 +135,7 @@
                             text: 'Arancel Anual ($ CLP)',
                             font: { weight: 'bold' }
                         },
-                        min: 2000000,
+                        min: 3000000,
                         max: 11000000,
                         ticks: {
                             callback: function(value) { return '$' + value.toLocaleString(); }
