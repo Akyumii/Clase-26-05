@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Acreditación vs Arancel (Consolidado por % de Notas)</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div style="width: 90%; margin: 30px auto;">
+        <canvas id="graficoAcredArancelConsolidado"></canvas>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('graficoAcredArancelConsolidado').getContext('2d');
+
+        function calcularRadioConsolidado(porcentaje, cantidadCarreras) {
+            if (porcentaje === 0) {
+                return 4 + (cantidadCarreras * 2); 
+            }
+           
+            return (porcentaje * 0.3) + (cantidadCarreras * 2.5);
+        }
+
+        const data = {
+            datasets: [
+                {
+                    label: '% de Seleccion Exigencia Escolar',
+                    backgroundColor: 'rgba(255, 99, 132, 0.6)', 
+                    borderColor: 'rgb(255, 99, 132)',
+                    borderWidth: 1,
+                    data: [
+                        
+                        { x: 3, y: 4030000, r: calcularRadioConsolidado(0, 1), filtro: 0, cantidad: 1, label: 'UNIACC - D. de Interiores y Ambientes' },
+                        { x: 5, y: 4071000, r: calcularRadioConsolidado(40, 1), filtro: 40, cantidad: 1, label: 'U. de La Serena - Diseño' },
+                        { x: 3, y: 4210000, r: calcularRadioConsolidado(0, 2), filtro: 0, cantidad: 2, label: 'UNIACC - D. de Imagen Moda / Gráfico Multimedia (2 carreras)' },
+                        { x: 4, y: 4277000, r: calcularRadioConsolidado(70, 1), filtro: 70, cantidad: 1, label: 'UVM - Diseño' },
+                        { x: 5, y: 4305000, r: calcularRadioConsolidado(60, 1), filtro: 60, cantidad: 1, label: 'UPLA - Diseño' },
+                        { x: 5, y: 4307000, r: calcularRadioConsolidado(50, 1), filtro: 50, cantidad: 1, label: 'U. del Bío-Bío - Diseño Gráfico' },
+                        { x: 5, y: 4434000, r: calcularRadioConsolidado(60, 1), filtro: 60, cantidad: 1, label: 'U. del Bío-Bío - Diseño Industrial' },
+                        { x: 3, y: 4580000, r: calcularRadioConsolidado(0, 1), filtro: 0, cantidad: 1, label: 'UNIACC - Comunicación Digital (Videojuegos)' },
+                        { x: 5, y: 4730000, r: calcularRadioConsolidado(70, 1), filtro: 70, cantidad: 1, label: 'UDLA - Diseño' },
+                        { x: 4, y: 4763300, r: calcularRadioConsolidado(50, 1), filtro: 50, cantidad: 1, label: 'UTEM - Diseño en Com. Visual' },
+                        { x: 4, y: 4814000, r: calcularRadioConsolidado(0, 1), filtro: 0, cantidad: 1, label: 'UGM - Diseño Exp. Inmersivas (Virtual)' },
+                        { x: 4, y: 4814000, r: calcularRadioConsolidado(70, 4), filtro: 70, cantidad: 4, label: 'UGM - Videojuegos / Animación / Interacción / Marketing (4 carreras)' },
+                        { x: 4, y: 4891000, r: calcularRadioConsolidado(60, 1), filtro: 60, cantidad: 1, label: 'UTEM - Diseño Industrial' },
+                        { x: 7, y: 4989000, r: calcularRadioConsolidado(50, 1), filtro: 50, cantidad: 1, label: 'USACH - Diseño Industrial' },
+                        { x: 6, y: 5069000, r: calcularRadioConsolidado(30, 1), filtro: 30, cantidad: 1, label: 'UNAB - Diseño de Juegos Digitales (Conce)' },
+                        { x: 5, y: 5120000, r: calcularRadioConsolidado(50, 1), filtro: 50, cantidad: 1, label: 'U. de Antofagasta - D. Gráfico Mención Estratégico' },
+                        { x: 6, y: 5180000, r: calcularRadioConsolidado(35, 1), filtro: 35, cantidad: 1, label: 'UTFSM - Ing. en Fabricación y D. Industrial' },
+                        { x: 5, y: 5276000, r: calcularRadioConsolidado(60, 1), filtro: 60, cantidad: 1, label: 'U. Católica de Temuco - Diseño' },
+                        { x: 7, y: 5492400, r: calcularRadioConsolidado(30, 1), filtro: 30, cantidad: 1, label: 'U. de Chile - Diseño Teatral' },
+                        { x: 6, y: 5713000, r: calcularRadioConsolidado(60, 1), filtro: 60, cantidad: 1, label: 'U. de Valparaíso - Diseño' },
+                        { x: 6, y: 5887000, r: calcularRadioConsolidado(50, 1), filtro: 50, cantidad: 1, label: 'U. Austral de Chile - Diseño' },
+                        { x: 6, y: 5887000, r: calcularRadioConsolidado(50, 1), filtro: 50, cantidad: 1, label: 'U. de Talca - Diseño' },
+                        { x: 5, y: 5900000, r: calcularRadioConsolidado(45, 1), filtro: 45, cantidad: 1, label: 'UBO - Ing. Realidad Virtual' },
+                        { x: 6, y: 6000000, r: calcularRadioConsolidado(35, 2), filtro: 35, cantidad: 2, label: 'UTFSM - Ing. Diseño de Productos (Stgo y Valpo - 2 carreras)' },
+                        { x: 6, y: 6056038, r: calcularRadioConsolidado(20, 1), filtro: 20, cantidad: 1, label: 'UDD - Diseño (Concepción)' },
+                        { x: 6, y: 6486700, r: calcularRadioConsolidado(40, 1), filtro: 40, cantidad: 1, label: 'U. de Chile - Diseño' },
+                        { x: 7, y: 6552000, r: calcularRadioConsolidado(50, 1), filtro: 50, cantidad: 1, label: 'USACH - Diseño en Com. Visual' },
+                        { x: 6, y: 6555000, r: calcularRadioConsolidado(50, 1), filtro: 50, cantidad: 1, label: 'U. de Tarapacá - Diseño Multimedia' },
+                        { x: 7, y: 6915000, r: calcularRadioConsolidado(40, 1), filtro: 40, cantidad: 1, label: 'PUCV - Diseño' },
+                        { x: 6, y: 7065000, r: calcularRadioConsolidado(30, 1), filtro: 30, cantidad: 1, label: 'UNAB - Diseño Gráfico' },
+                        { x: 6, y: 7136000, r: calcularRadioConsolidado(30, 1), filtro: 30, cantidad: 1, label: 'UNAB - Diseño de Juegos Digitales (Stgo)' },
+                        { x: 6, y: 7148000, r: calcularRadioConsolidado(30, 1), filtro: 30, cantidad: 1, label: 'UNAB - Diseño de Vestuario y Textil' },
+                        { x: 5, y: 7200000, r: calcularRadioConsolidado(40, 1), filtro: 40, cantidad: 1, label: 'U. Finis Terrae - Bachillerato' },
+                        { x: 5, y: 7214218, r: calcularRadioConsolidado(40, 1), filtro: 40, cantidad: 1, label: 'U. Mayor - Diseño Menciones' },
+                        { x: 5, y: 7320000, r: calcularRadioConsolidado(40, 1), filtro: 40, cantidad: 1, label: 'U. Finis Terrae - Diseño' },
+                        { x: 5, y: 7320000, r: calcularRadioConsolidado(30, 1), filtro: 30, cantidad: 1, label: 'U. Finis Terrae - Diseño de Moda' },
+                        { x: 6, y: 7597000, r: calcularRadioConsolidado(40, 1), filtro: 40, cantidad: 1, label: 'UDP - Diseño' },
+                        { x: 7, y: 8080000, r: calcularRadioConsolidado(50, 1), filtro: 50, cantidad: 1, label: 'PUC - Diseño' },
+                        { x: 6, y: 9754692, r: calcularRadioConsolidado(50, 1), filtro: 50, cantidad: 1, label: 'UDD - Diseño' },
+                        { x: 6, y: 9754692, r: calcularRadioConsolidado(0, 1), filtro: 0, cantidad: 1, label: 'UAI - Ingeniería en Diseño' },
+                        { x: 6, y: 10364360, r: calcularRadioConsolidado(20, 1), filtro: 20, cantidad: 1, label: 'UDD - Bachillerato en Diseño' }
+                    ]
+                }
+            ]
+        };
+
+        new Chart(ctx, {
+            type: 'bubble',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    
+                    
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let item = context.raw;
+                                return item.label + 
+                                       ' | Acreditación: ' + item.x + ' años' +
+                                       ' | Arancel: $' + item.y.toLocaleString() + 
+                                       ' | Filtro Notas: ' + item.filtro + '%' +
+                                       ' | Carreras en este punto: ' + item.cantidad;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Años de Acreditación Institucional',
+                            font: { weight: 'bold' }
+                        },
+                        min: 2,
+                        max: 8,
+                        ticks: {
+                            stepSize: 1,
+                            callback: function(value) { return value + ' Años'; }
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Arancel Anual ($ CLP)',
+                            font: { weight: 'bold' }
+                        },
+                        min: 2000000,
+                        max: 11000000,
+                        ticks: {
+                            callback: function(value) { return '$' + value.toLocaleString(); }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
